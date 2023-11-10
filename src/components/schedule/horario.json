@@ -1,0 +1,28 @@
+{
+  "collectionName": "components_schedule_horarios",
+  "info": {
+    "displayName": "Horario",
+    "icon": "calendar",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "dayOfWeek": {
+      "type": "string",
+      "required": true
+    },
+    "opening": {
+      "type": "time",
+      "required": false
+    },
+    "closing": {
+      "type": "time",
+      "required": false
+    },
+    "closed": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    }
+  }
+}

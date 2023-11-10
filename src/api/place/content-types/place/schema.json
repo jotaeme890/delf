@@ -1,0 +1,78 @@
+{
+  "kind": "collectionType",
+  "collectionName": "places",
+  "info": {
+    "singularName": "place",
+    "pluralName": "places",
+    "displayName": "Place",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "description": {
+      "type": "text",
+      "required": true,
+      "maxLength": 150
+    },
+    "price": {
+      "type": "decimal",
+      "required": true,
+      "default": 0
+    },
+    "street": {
+      "type": "string",
+      "required": true
+    },
+    "pc": {
+      "type": "string",
+      "maxLength": 10,
+      "required": true
+    },
+    "number": {
+      "type": "string",
+      "required": true
+    },
+    "Schedule": {
+      "type": "component",
+      "repeatable": true,
+      "component": "schedule.horario"
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "favorites": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::favorite.favorite",
+      "mappedBy": "place"
+    },
+    "latitude": {
+      "type": "float"
+    },
+    "longitude": {
+      "type": "float"
+    },
+    "places_eats": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::places-eat.places-eat",
+      "mappedBy": "places"
+    },
+    "city": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::city.city",
+      "inversedBy": "places"
+    },
+    "user": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::extended-user.extended-user",
+      "inversedBy": "places"
+    }
+  }
+}

@@ -631,7 +631,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
   options: {
     draftAndPublish: false;
-    timestamps: true;
   };
   attributes: {
     username: Attribute.String &
@@ -677,6 +676,224 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
   };
 }
 
+export interface ApiCityCity extends Schema.CollectionType {
+  collectionName: 'cities';
+  info: {
+    singularName: 'city';
+    pluralName: 'cities';
+    displayName: 'City';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    name: Attribute.String;
+    places: Attribute.Relation<
+      'api::city.city',
+      'oneToMany',
+      'api::place.place'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<'api::city.city', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<'api::city.city', 'oneToOne', 'admin::user'> &
+      Attribute.Private;
+  };
+}
+
+export interface ApiExtendedUserExtendedUser extends Schema.CollectionType {
+  collectionName: 'extended_users';
+  info: {
+    singularName: 'extended-user';
+    pluralName: 'extended-users';
+    displayName: 'extendedUser';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    user: Attribute.Relation<
+      'api::extended-user.extended-user',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
+    places: Attribute.Relation<
+      'api::extended-user.extended-user',
+      'oneToMany',
+      'api::place.place'
+    >;
+    profilePicture: Attribute.Media;
+    age: Attribute.Integer &
+      Attribute.Required &
+      Attribute.SetMinMax<{
+        min: 18;
+      }>;
+    favorites: Attribute.Relation<
+      'api::extended-user.extended-user',
+      'oneToMany',
+      'api::favorite.favorite'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::extended-user.extended-user',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::extended-user.extended-user',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiFavoriteFavorite extends Schema.CollectionType {
+  collectionName: 'favorites';
+  info: {
+    singularName: 'favorite';
+    pluralName: 'favorites';
+    displayName: 'Favorite';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    place: Attribute.Relation<
+      'api::favorite.favorite',
+      'manyToOne',
+      'api::place.place'
+    >;
+    user: Attribute.Relation<
+      'api::favorite.favorite',
+      'manyToOne',
+      'api::extended-user.extended-user'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::favorite.favorite',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::favorite.favorite',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPlacePlace extends Schema.CollectionType {
+  collectionName: 'places';
+  info: {
+    singularName: 'place';
+    pluralName: 'places';
+    displayName: 'Place';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    description: Attribute.Text &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        maxLength: 150;
+      }>;
+    price: Attribute.Decimal & Attribute.Required & Attribute.DefaultTo<0>;
+    street: Attribute.String & Attribute.Required;
+    pc: Attribute.String &
+      Attribute.Required &
+      Attribute.SetMinMaxLength<{
+        maxLength: 10;
+      }>;
+    number: Attribute.String & Attribute.Required;
+    Schedule: Attribute.Component<'schedule.horario', true>;
+    name: Attribute.String & Attribute.Required;
+    favorites: Attribute.Relation<
+      'api::place.place',
+      'oneToMany',
+      'api::favorite.favorite'
+    >;
+    latitude: Attribute.Float;
+    longitude: Attribute.Float;
+    places_eats: Attribute.Relation<
+      'api::place.place',
+      'manyToMany',
+      'api::places-eat.places-eat'
+    >;
+    city: Attribute.Relation<'api::place.place', 'manyToOne', 'api::city.city'>;
+    user: Attribute.Relation<
+      'api::place.place',
+      'manyToOne',
+      'api::extended-user.extended-user'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::place.place',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::place.place',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPlacesEatPlacesEat extends Schema.CollectionType {
+  collectionName: 'places_eats';
+  info: {
+    singularName: 'places-eat';
+    pluralName: 'places-eats';
+    displayName: 'Places_Eat';
+    description: '';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    places: Attribute.Relation<
+      'api::places-eat.places-eat',
+      'manyToMany',
+      'api::place.place'
+    >;
+    name: Attribute.String & Attribute.Required;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::places-eat.places-eat',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::places-eat.places-eat',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
 declare module '@strapi/types' {
   export module Shared {
     export interface ContentTypes {
@@ -693,6 +910,11 @@ declare module '@strapi/types' {
       'plugin::users-permissions.permission': PluginUsersPermissionsPermission;
       'plugin::users-permissions.role': PluginUsersPermissionsRole;
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
+      'api::city.city': ApiCityCity;
+      'api::extended-user.extended-user': ApiExtendedUserExtendedUser;
+      'api::favorite.favorite': ApiFavoriteFavorite;
+      'api::place.place': ApiPlacePlace;
+      'api::places-eat.places-eat': ApiPlacesEatPlacesEat;
     }
   }
 }
