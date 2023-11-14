@@ -726,7 +726,7 @@ export interface ApiExtendedUserExtendedUser extends Schema.CollectionType {
       'oneToMany',
       'api::place.place'
     >;
-    profilePicture: Attribute.Media;
+    picture: Attribute.Media;
     age: Attribute.Integer &
       Attribute.Required &
       Attribute.SetMinMax<{
@@ -737,6 +737,8 @@ export interface ApiExtendedUserExtendedUser extends Schema.CollectionType {
       'oneToMany',
       'api::favorite.favorite'
     >;
+    name: Attribute.String & Attribute.Required;
+    surname: Attribute.String & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;

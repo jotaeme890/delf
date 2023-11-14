@@ -23,7 +23,7 @@
       "target": "api::place.place",
       "mappedBy": "user"
     },
-    "profilePicture": {
+    "picture": {
       "type": "media",
       "multiple": false,
       "required": false,
@@ -44,6 +44,14 @@
       "relation": "oneToMany",
       "target": "api::favorite.favorite",
       "mappedBy": "user"
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "surname": {
+      "type": "string",
+      "required": true
     }
   }
 }
