@@ -56,12 +56,6 @@
     "longitude": {
       "type": "float"
     },
-    "places_eats": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::places-eat.places-eat",
-      "mappedBy": "places"
-    },
     "city": {
       "type": "relation",
       "relation": "manyToOne",

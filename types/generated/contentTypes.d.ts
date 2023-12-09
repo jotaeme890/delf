@@ -831,11 +831,6 @@ export interface ApiPlacePlace extends Schema.CollectionType {
     >;
     latitude: Attribute.Float;
     longitude: Attribute.Float;
-    places_eats: Attribute.Relation<
-      'api::place.place',
-      'manyToMany',
-      'api::places-eat.places-eat'
-    >;
     city: Attribute.Relation<'api::place.place', 'manyToOne', 'api::city.city'>;
     user: Attribute.Relation<
       'api::place.place',
@@ -853,42 +848,6 @@ export interface ApiPlacePlace extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::place.place',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-  };
-}
-
-export interface ApiPlacesEatPlacesEat extends Schema.CollectionType {
-  collectionName: 'places_eats';
-  info: {
-    singularName: 'places-eat';
-    pluralName: 'places-eats';
-    displayName: 'Places_Eat';
-    description: '';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    places: Attribute.Relation<
-      'api::places-eat.places-eat',
-      'manyToMany',
-      'api::place.place'
-    >;
-    name: Attribute.String & Attribute.Required;
-    createdAt: Attribute.DateTime;
-    updatedAt: Attribute.DateTime;
-    publishedAt: Attribute.DateTime;
-    createdBy: Attribute.Relation<
-      'api::places-eat.places-eat',
-      'oneToOne',
-      'admin::user'
-    > &
-      Attribute.Private;
-    updatedBy: Attribute.Relation<
-      'api::places-eat.places-eat',
       'oneToOne',
       'admin::user'
     > &
@@ -916,7 +875,6 @@ declare module '@strapi/types' {
       'api::extended-user.extended-user': ApiExtendedUserExtendedUser;
       'api::favorite.favorite': ApiFavoriteFavorite;
       'api::place.place': ApiPlacePlace;
-      'api::places-eat.places-eat': ApiPlacesEatPlacesEat;
     }
   }
 }
